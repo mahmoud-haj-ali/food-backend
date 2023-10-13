@@ -8,23 +8,33 @@ const User = dbConnection.define('user', {
         allowNull: false,
         defaultValue: Sequelize.UUIDV4,
     },
-    firstName: {
+    fullName: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastName: {
+    username: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: 'username'
-    },
-    fatherName: {
-        type: DataTypes.STRING,
-        allowNull: true,
         unique: 'username'
     },
     password: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        },
+        unique: 'email'
+    },
+    imageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+            isUrl: true
+        }
     },
     fbToken: {
         type: DataTypes.STRING,
@@ -32,60 +42,32 @@ const User = dbConnection.define('user', {
     },
     dateOfBirth: {
         type: DataTypes.DATE,
-        allowNull: true
-    },
-    placeOfBirth: {
-        type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false,
     },
     mobile: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: 'mobile'
     },
-    landlinePhone: {
+    address: {
         type: DataTypes.STRING,
-        allowNull: true
-    },
-    currentAddress: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    permanintAddress: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    isMarried: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true
-    },
-    nationalId: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    brothers: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    sisters: {
-        type: DataTypes.INTEGER,
-        allowNull: true
-    },
-    currentWork: {
-        type: DataTypes.INTEGER,
         allowNull: true
     },
     gender: {
         type: DataTypes.ENUM("male", "female"),
-        allowNull: true,
+        allowNull: false,
+        // validate:{
+        //     isIn: ["male","female"]
+        // }
     },
     role: {
-        type: DataTypes.ENUM("teacher", "tester", "admin", "superAdmin"),
+        type: DataTypes.ENUM("user", "admin", "superAdmin"),
         allowNull: false
     },
     isConfirmed: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: false
     },
 },{
     timestamps: true,
